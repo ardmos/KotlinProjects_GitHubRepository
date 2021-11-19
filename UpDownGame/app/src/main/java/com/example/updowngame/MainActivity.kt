@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
             Log.d("에딧텍스트테스트", edittext1.text.toString())
 
             // 4. 정답 여부를 알려주는 TextView.
-            if(ranNum == edittext1.text){
+            //if(ranNum == edittext1.text){
 
-            }
+            //}
         }
 
 
