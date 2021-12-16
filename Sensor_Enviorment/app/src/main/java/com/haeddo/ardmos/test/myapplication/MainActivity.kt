@@ -1,4 +1,4 @@
-package com.underdog.ardmos.test.sensor_motion
+package com.haeddo.ardmos.test.myapplication
 
 import android.content.Context
 import android.hardware.Sensor
@@ -15,14 +15,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sensor_manager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
         val device_sensors : List<Sensor> = sensor_manager.getSensorList(Sensor.TYPE_ALL)
 
-
-        for ( s in device_sensors){
-            Log.d("MySensor_name : ", s.name)
+        for(s in device_sensors){
+            Log.d("MySensors : ", s.name)
         }
-
 
     }
 }
