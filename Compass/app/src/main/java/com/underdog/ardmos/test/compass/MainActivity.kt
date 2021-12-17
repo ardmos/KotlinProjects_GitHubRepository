@@ -6,6 +6,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import kotlin.math.round
@@ -42,7 +43,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
-        TODO("Not yet implemented")
         // 1
         if (p0 == null) {
             return
@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         updateOrientationAngles()
 
         val angleWithDirection = "$angle  $direction"
+
+        Log.d("myDebug", "angleWithDeirection : $angleWithDirection")
         val direction_textView = findViewById<TextView>(R.id.direction_textView)
         direction_textView.text = angleWithDirection
         // 2
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        TODO("Not yet implemented")
+
     }
 
     fun updateOrientationAngles() {

@@ -11,13 +11,11 @@
         android:id="@+id/compass_imageView"
         android:layout_width="225dp"
         android:layout_height="250dp"
-        android:rotation="90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abc_vector_test"
-        app:tint="@color/purple_200" />
+        app:srcCompat="@drawable/arrow_sample" />
 
     <TextView
         android:id="@+id/direction_textView"
