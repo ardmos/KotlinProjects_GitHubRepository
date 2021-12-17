@@ -11,6 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import kotlin.math.round
 
+//0. 센서 없는지 체크하는 과정 추가하기
+//1. 상단 네비게이션바 없애기
+//2. 이미지 만들기
+//	- 내부(나침반)
+//	- 아이콘
+//	- 마켓 스크린샷
+
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensor_manager : SensorManager
