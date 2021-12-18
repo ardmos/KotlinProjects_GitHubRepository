@@ -4,11 +4,15 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import com.underdog.ardmos.test.compass.databinding.ActivityMainBinding
 import kotlin.math.round
 
 //0. 센서 없는지 체크하는 과정 추가하기
@@ -19,6 +23,8 @@ import kotlin.math.round
 //	- 마켓 스크린샷
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
+
+    val vbinding by lazy{ ActivityMainBinding.inflate(layoutInflater) }
 
     private lateinit var sensor_manager : SensorManager
 
@@ -32,12 +38,46 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var direction : String = ""
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        // If the Android version is lower than Jellybean, use this call to hide
+        // the status bar.
+        if (Build.VERSION.SDK_INT < 16) {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }else{
+            // Hide the status bar.
+            //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            // Remember that you should never show the action bar if the
+            // status bar is hidden, so hide that too if necessary.
+            //actionBar?.hide()
+            //actionBar?.hide()
+            // This example uses decor view, but you can use any visible view.
+            //activity?.window?.decorView?.apply {
+            //    systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+            //}
+        }
+
+
+        setContentView(vbinding.root)
+
+
+
+
 
         // 1
         sensor_manager = getSystemService(SENSOR_SERVICE) as SensorManager
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         // 2
         sensor_manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also { accelerometer ->
             sensor_manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
@@ -46,7 +86,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensor_manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)?.also { magneticField ->
             sensor_manager.registerListener(this, magneticField, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
         }
-
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
@@ -67,11 +106,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val angleWithDirection = "$angle  $direction"
 
         Log.d("myDebug", "angleWithDeirection : $angleWithDirection")
-        val direction_textView = findViewById<TextView>(R.id.direction_textView)
-        direction_textView.text = angleWithDirection
         // 2
-        val compass_imageView = findViewById<ImageView>(R.id.compass_imageView)
-        compass_imageView.rotation = angle.toFloat() * -1
+        vbinding.compassImageView.rotation = angle.toFloat() * -1
 
     }
 
