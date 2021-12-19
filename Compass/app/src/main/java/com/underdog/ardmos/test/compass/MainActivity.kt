@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         // If the Android version is lower than Jellybean, use this call to hide
         // the status bar.
         if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            //window.setFlags(
+              //  WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                //WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }else{
             // Hide the status bar.
             //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -61,6 +61,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             //activity?.window?.decorView?.apply {
             //    systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
             //}
+            //window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            //MAINLAYOUT.setPadding(0, statusBarHeight(this), 0, 0)
+            //actionBar?.hide()
+
         }
 
         setContentView(vbinding.root)
@@ -69,18 +73,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensor_manager = getSystemService(SENSOR_SERVICE) as SensorManager
 
 
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        vbinding.mainActivityLayout.setPadding(0, this.resources.getDimensionPixelSize(this.resources.getIdentifier("status_bar_height", "dimen", "android")), 0, 0)
+
+
     }
 
     override fun onResume() {
         super.onResume()
 
         // Hide the status bar.
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         //window.decorView.system
         //View 공부중
         // Remember that you should never show the action bar if the
         // status bar is hidden, so hide that too if necessary.
-        actionBar?.hide()
+        //actionBar?.hide()
 
 
         // 2
