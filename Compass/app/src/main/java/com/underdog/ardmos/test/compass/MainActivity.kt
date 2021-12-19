@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensor_manager = getSystemService(SENSOR_SERVICE) as SensorManager
 
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        vbinding.mainActivityLayout.setPadding(0, this.resources.getDimensionPixelSize(this.resources.getIdentifier("status_bar_height", "dimen", "android")), 0, 0)
+        //window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        //vbinding.mainActivityLayout.setPadding(0, this.resources.getDimensionPixelSize(this.resources.getIdentifier("status_bar_height", "dimen", "android")), 0, 0)
 
 
     }

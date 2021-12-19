@@ -14,7 +14,8 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="TransparentStatusTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
+    <style name="PrettyOrangeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/pretty_orange</item>
+        <item name="android:navigationBarColor">@color/pretty_orange</item>
     </style>
 </resources>
