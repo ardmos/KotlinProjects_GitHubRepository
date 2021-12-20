@@ -51,8 +51,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         if (p0 == null) return
 
         //vbinding.star.setPadding(0, p0.values[1].toInt()*10, p0.values[0].toInt()*10, 0 )
-        ObjectAnimator.ofFloat(vbinding.star, "translationX", p0.values[0]*10f).apply {
-            duration = 2000
+        ObjectAnimator.ofFloat(vbinding.star, "translationX", p0.values[0]*30f).apply {
+            //duration = 2000
+            start()
+        }
+        ObjectAnimator.ofFloat(vbinding.star, "translationY", p0.values[1]*30f*-1).apply {
+            //duration = 2000
             start()
         }
 
