@@ -2,6 +2,9 @@ package com.haeddoo.level
 
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.graphics.Color
+import android.graphics.Color.red
+import android.graphics.ColorFilter
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -9,7 +12,9 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.haeddoo.level.databinding.ActivityMainBinding
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
@@ -18,6 +23,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensor_manager : SensorManager
     private var sensor : Sensor? = null
+
+    val sensor_center_precision = 10f
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +79,28 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         //이동이 뻑뻑함
         //vbinding.orangeBottom.translationX = p0.values[0]*50f*-1
 
+        //Log.d("myLog", "x:${abs(p0.values[0])}, y:${abs(p0.values[1])}, sensor: ${sensor_center_precision}")
+        Log.d("myLog", "x:${vbinding.orangeBottom.translationX}, y:${vbinding.orangeLeft.translationY}, sensor: ${sensor_center_precision}")
 
+        //중앙 체크
+        val abs_orangeLeftY = abs(vbinding.orangeLeft.translationY)
+        val abs_orangeBottomX = abs(vbinding.orangeBottom.translationX)
+
+        //Main
+        if( abs_orangeBottomX <= sensor_center_precision && abs_orangeLeftY <= sensor_center_precision)
+        {
+            vbinding.orangeMain.setColorFilter(resources.getColor(R.color.red))
+            //Toast.makeText(this,"와! 중앙!", Toast.LENGTH_LONG).show()
+        }
+        else vbinding.orangeMain.colorFilter = null
+        //Left
+        if(abs_orangeLeftY <= sensor_center_precision){
+            vbinding.orangeLeft.setColorFilter(resources.getColor(R.color.red))
+        }else vbinding.orangeLeft.colorFilter = null
+        //Bottom
+        if(abs_orangeBottomX <= sensor_center_precision){
+            vbinding.orangeBottom.setColorFilter(resources.getColor(R.color.red))
+        }else vbinding.orangeBottom.colorFilter = null
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
