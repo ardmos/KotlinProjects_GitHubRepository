@@ -29,9 +29,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         //sensor = sensor_manager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
         sensor = sensor_manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-        vbinding.button.setOnClickListener {
-            vbinding.star.setPadding(0, 100, 100, 0 )
-        }
     }
 
     override fun onResume() {
@@ -51,19 +48,29 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         if (p0 == null) return
 
         //vbinding.star.setPadding(0, p0.values[1].toInt()*10, p0.values[0].toInt()*10, 0 )
-        ObjectAnimator.ofFloat(vbinding.star, "translationX", p0.values[0]*30f).apply {
+        //Main
+        ObjectAnimator.ofFloat(vbinding.orangeMain, "translationX", p0.values[0]*50f*-1).apply {
             //duration = 2000
             start()
         }
-        ObjectAnimator.ofFloat(vbinding.star, "translationY", p0.values[1]*30f*-1).apply {
+        ObjectAnimator.ofFloat(vbinding.orangeMain, "translationY", p0.values[1]*50f).apply {
             //duration = 2000
             start()
         }
 
-        vbinding.textViewX.text = "x: ${p0.values[0]}, star_x: ${vbinding.star.paddingRight}"
-        vbinding.textViewY.text = "y: ${p0.values[1]}, star_y: ${vbinding.star.paddingTop}"
-        vbinding.textViewZ.text = "z: ${p0.values[2]}"
+        //Left
+        ObjectAnimator.ofFloat(vbinding.orangeLeft, "translationY", p0.values[1]*50f).apply {
+            //duration = 2000
+            start()
+        }
+        //Bottom
+        ObjectAnimator.ofFloat(vbinding.orangeBottom, "translationX", p0.values[0]*50f*-1).apply {
+            //duration = 2000
+            start()
+        }
 
+        //이동이 뻑뻑함
+        //vbinding.orangeBottom.translationX = p0.values[0]*50f*-1
 
 
     }
