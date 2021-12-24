@@ -49,11 +49,16 @@
         android:layout_height="108dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bannerAdView"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/flower_pot" />
 
-
-
+    <com.kakao.adfit.ads.ba.BannerAdView
+        android:id="@+id/bannerAdView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

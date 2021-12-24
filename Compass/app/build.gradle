@@ -10,8 +10,8 @@ android {
         applicationId "com.underdog.ardmos.test.compass"
         minSdk 24
         targetSdk 31
-        versionCode 2
-        versionName "Compass_v0.1"
+        versionCode 3
+        versionName "Compass_v0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
