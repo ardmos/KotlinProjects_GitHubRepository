@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val angleWithDirection = "$angle  $direction"
 
-        //Log.d("myDebug", "angleWithDeirection : $angleWithDirection")
+        ///Log.d("myDebug", "angleWithDeirection : $angleWithDirection")
         // 2
         vbinding.compassImageView.rotation = angle.toFloat() * -1
 
