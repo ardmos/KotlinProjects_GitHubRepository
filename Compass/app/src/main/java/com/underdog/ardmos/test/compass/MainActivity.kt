@@ -13,6 +13,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val angleWithDirection = "$angle  $direction"
 
-        Log.d("myDebug", "angleWithDeirection : $angleWithDirection")
+        //Log.d("myDebug", "angleWithDeirection : $angleWithDirection")
         // 2
         vbinding.compassImageView.rotation = angle.toFloat() * -1
 
@@ -173,19 +174,23 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private fun kakaoAdFit(){
         val adView: BannerAdView = vbinding.bannerAdView
-        adView.setClientId("input-your-clientId")  // 할당 받은 광고단위 ID 설정
+        adView.setClientId("DAN-XUuXD0iXLqigeHuw")  // 할당 받은 광고단위 ID 설정
         adView.setAdListener(object : AdListener {  // optional :: 광고 수신 리스너 설정
 
             override fun onAdLoaded() {
                 // 배너 광고 노출 완료 시 호출
+                //Toast.makeText(applicationContext, "Loaded!", Toast.LENGTH_LONG).show()
             }
 
             override fun onAdFailed(errorCode: Int) {
                 // 배너 광고 노출 실패 시 호출
+                //Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+                //Log.d("myLog", errorCode.toString())
             }
 
             override fun onAdClicked() {
                 // 배너 광고 클릭 시 호출
+                //Toast.makeText(applicationContext, "Clicked!", Toast.LENGTH_LONG).show()
             }
 
         })
