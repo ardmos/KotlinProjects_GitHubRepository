@@ -9,6 +9,14 @@
     tools:context=".MainActivity"
     >
 
+    <FrameLayout
+        android:id="@+id/ad_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/bg_imageView"
         android:layout_width="0dp"
@@ -48,18 +56,10 @@
         android:id="@+id/imageView"
         android:layout_width="106dp"
         android:layout_height="108dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="90dp"
         android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/bannerAdView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/flower_pot" />
-
-    <com.kakao.adfit.ads.ba.BannerAdView
-        android:id="@+id/bannerAdView"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

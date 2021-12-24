@@ -7,6 +7,7 @@ import android.hardware.SensorManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
@@ -17,9 +18,11 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.google.android.gms.ads.*
 import com.kakao.adfit.ads.AdListener
 import com.kakao.adfit.ads.ba.BannerAdView
 import com.underdog.ardmos.test.compass.databinding.ActivityMainBinding
+import java.util.*
 import kotlin.math.round
 
 
@@ -39,6 +42,28 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var direction : String = ""
 
 
+    //Google AdMob
+    private lateinit var adView: AdView
+
+    private var initialLayoutComplete = false
+    // Determine the screen width (less decorations) to use for the ad width.
+    // If the ad hasn't been laid out, default to the full screen width.
+    private val adSize: AdSize
+        get() {
+            val display = windowManager.defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display.getMetrics(outMetrics)
+
+            val density = outMetrics.density
+
+            var adWidthPixels = vbinding.adViewContainer.width.toFloat()
+            if (adWidthPixels == 0f) {
+                adWidthPixels = outMetrics.widthPixels.toFloat()
+            }
+
+            val adWidth = (adWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -77,31 +102,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         //vbinding.mainActivityLayout.setPadding(0, this.resources.getDimensionPixelSize(this.resources.getIdentifier("status_bar_height", "dimen", "android")), 0, 0)
 
         //Kakao Adfit
-        kakaoAdFit()
+        //kakaoAdFit()
+
+        //Google AdMob
+        googleAdMob()
 
     }
 
-    override fun onResume() {
-        super.onResume()
 
-        // Hide the status bar.
-        //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        //window.decorView.system
-        //View 공부중
-        // Remember that you should never show the action bar if the
-        // status bar is hidden, so hide that too if necessary.
-        //actionBar?.hide()
-
-
-        // 2
-        sensor_manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also { accelerometer ->
-            sensor_manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
-        }
-        // 3
-        sensor_manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)?.also { magneticField ->
-            sensor_manager.registerListener(this, magneticField, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
-        }
-    }
 
     override fun onSensorChanged(p0: SensorEvent?) {
         // 1
@@ -166,12 +174,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         return direction
     }
 
-    override fun onPause() {
-        // Be sure to unregister the sensor when the activity pauses.
-        super.onPause()
-        sensor_manager.unregisterListener(this)
-    }
 
+    /*
     private fun kakaoAdFit(){
         val adView: BannerAdView = vbinding.bannerAdView
         adView.setClientId("DAN-XUuXD0iXLqigeHuw")  // 할당 받은 광고단위 ID 설정
@@ -218,6 +222,122 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         adView.loadAd()  // 광고 요청
 
 
+    }
+    */
+
+
+    private fun googleAdMob(){
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this) { }
+
+        // Set your test devices. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345"))
+        // to get test ads on this device."
+        MobileAds.setRequestConfiguration(
+            RequestConfiguration.Builder()
+                .setMaxAdContentRating("G")
+                .setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE)
+                //.setTestDeviceIds(Arrays.asList("CED7603B83B3F277F3B7BABF77EE2275"))    //For Test
+                .build()
+        )
+
+        adView = AdView(this)
+        vbinding.adViewContainer.addView(adView)
+        // Since we're loading the banner based on the adContainerView size, we need to wait until this
+        // view is laid out before we can get the width.
+        vbinding.adViewContainer.viewTreeObserver.addOnGlobalLayoutListener {
+            if (!initialLayoutComplete) {
+                initialLayoutComplete = true
+                loadBanner()
+            }
+        }
+    }
+
+    /** Called when leaving the activity  */
+    public override fun onPause() {
+        adView.pause()
+        // Be sure to unregister the sensor when the activity pauses.
+        sensor_manager.unregisterListener(this)
+        super.onPause()
+
+    }
+
+    /** Called when returning to the activity  */
+    public override fun onResume() {
+        super.onResume()
+
+        // Hide the status bar.
+        //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        //window.decorView.system
+        //View 공부중
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        //actionBar?.hide()
+
+        // 2
+        sensor_manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also { accelerometer ->
+            sensor_manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
+        }
+        // 3
+        sensor_manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)?.also { magneticField ->
+            sensor_manager.registerListener(this, magneticField, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
+        }
+
+        adView.resume()
+    }
+
+    /** Called before the activity is destroyed  */
+    public override fun onDestroy() {
+        adView.destroy()
+        super.onDestroy()
+    }
+
+    private fun loadBanner() {
+        adView.adUnitId = AD_UNIT_ID
+
+        adView.adSize = adSize
+
+        // Create an ad request.
+        val adRequest = AdRequest.Builder().build()
+
+        adView.adListener = object : com.google.android.gms.ads.AdListener() {
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                Log.d("myLog", "Ad Loaded!")
+                Toast.makeText(applicationContext, "Ad Loaded!", Toast.LENGTH_LONG)
+            }
+
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                // Code to be executed when an ad request fails.
+                Log.d("myLog", adError.toString())
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+                Log.d("myLog", "Ad Opened!")
+            }
+
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+                Log.d("myLog", "Ad Clicked!")
+            }
+
+            override fun onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+                Log.d("myLog", "Ad Closed!")
+            }
+        }
+
+        // Start loading the ad in the background.
+        adView.loadAd(adRequest)
+    }
+
+    companion object {
+        // This is an ad unit ID for a test ad. Replace with your own banner ad unit ID.
+        private val AD_UNIT_ID = "ca-app-pub-6561678831605592/9072947808"
     }
 }
 
