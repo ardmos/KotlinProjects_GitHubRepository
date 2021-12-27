@@ -1,5 +1,6 @@
 package com.underdog.ardmos.test.compass
 
+import android.app.DownloadManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -241,6 +242,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 //.setTestDeviceIds(Arrays.asList("CED7603B83B3F277F3B7BABF77EE2275"))    //For Test
                 .build()
         )
+
+        //var requestConfiguration = MobileAds.getRequestConfiguration()
+        //    .toBuilder()
+        //    .setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE)
+        //    .build()
+
 
         adView = AdView(this)
         vbinding.adViewContainer.addView(adView)
