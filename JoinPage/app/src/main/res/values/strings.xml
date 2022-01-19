@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">JoinPage</string>
+    <string name="hint_id">ID</string>
+    <string name="hint_password">PASSWORD</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_email_address">e-mail address</string>
+    <string name="button_text">submit</string>
+    <string name="textview_title">JoinPage</string>
+    <string name="checkbox_one">Accept the terms and conditions</string>
+    <string name="checkbox_two">Agree to the Privacy Policy</string>
+    <string name="checkbox_three">Consent to receive SMS</string>
+    <string name="textview_question">Type of device</string>
 </resources>
