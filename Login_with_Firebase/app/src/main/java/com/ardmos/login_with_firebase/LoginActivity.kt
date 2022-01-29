@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.ardmos.login_with_firebase.databinding.ActivityMainBinding
+import com.ardmos.login_with_firebase.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -13,11 +13,11 @@ import com.google.firebase.ktx.Firebase
 // Login with Firebase by Email & Password
 // 가입과 로그인이 되는것까지 확인했다. 액티비티들 추가할 차례
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val TAG: String = "My Log"
     private lateinit var auth: FirebaseAuth
-    val vbinding by lazy { ActivityMainBinding.inflate(layoutInflater)}
+    val vbinding by lazy { ActivityLoginBinding.inflate(layoutInflater)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
