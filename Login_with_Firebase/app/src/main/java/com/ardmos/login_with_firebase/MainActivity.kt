@@ -1,5 +1,6 @@
 package com.ardmos.login_with_firebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 // Login with Firebase by Email & Password
+// 가입과 로그인이 되는것까지 확인했다. 액티비티들 추가할 차례
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,21 +47,12 @@ class MainActivity : AppCompatActivity() {
             }
             // button_join
         vbinding.buttonJoin.setOnClickListener {
-                auth.createUserWithEmailAndPassword(vbinding.inputEmailId.text.toString(), vbinding.inputPassword.text.toString()).addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success, user: ${auth.currentUser}")
-                            val user = auth.currentUser
-                            //updateUI(user)
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                            Toast.makeText(baseContext, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
-                            //updateUI(null)
-                        }
-                    }
-            }
+            //intent
+            val intent = Intent(this, JoinActivity::class.java)
+            intent.putExtra("TAG", TAG)
+            //startActivity
+            startActivity(intent)
+        }
         //}
 
 
