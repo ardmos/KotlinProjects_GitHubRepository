@@ -18,7 +18,7 @@ import com.google.firebase.ktx.Firebase
 
 class JoinActivity : AppCompatActivity() {
     private var TAG = ""
-    val vbinding by lazy { ActivityJoinBinding.inflate(layoutInflater)}
+    private val vbinding by lazy { ActivityJoinBinding.inflate(layoutInflater)}
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
@@ -27,10 +27,10 @@ class JoinActivity : AppCompatActivity() {
         setContentView(vbinding.root)
         // get TAG data from LoginActivity
         TAG = intent.getStringExtra("TAG").toString()
-        // Initialize Firebase Auth
-        auth = Firebase.auth
-        // Access a Cloud Firestore instance from your Activity
-        db = Firebase.firestore
+        // get a Firebase Auth instance
+        auth = FirebaseAuth.getInstance()
+        // get a Cloud Firestore instance
+        db = FirebaseFirestore.getInstance()
 
 
         // 스피너에 입력할 데이터 - 탄생년도
