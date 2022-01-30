@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.ardmos.login_with_firebase.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 // Login with Firebase by Email & Password
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                             //updateUI(null)
                         }
-                    }
+                }
             }
             // button_join
         vbinding.buttonJoin.setOnClickListener {
@@ -54,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         //}
-
 
     }
 
