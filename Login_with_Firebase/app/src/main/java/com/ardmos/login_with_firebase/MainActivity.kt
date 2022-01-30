@@ -3,6 +3,7 @@ package com.ardmos.login_with_firebase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.ardmos.login_with_firebase.LoginActivity.Companion.TAG
 import com.ardmos.login_with_firebase.databinding.ActivityLoginBinding
 import com.ardmos.login_with_firebase.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -12,7 +13,6 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    private val TAG: String = "My Log"
     val vbinding by lazy { ActivityMainBinding.inflate(layoutInflater)}
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore

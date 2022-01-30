@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.ardmos.login_with_firebase.LoginActivity.Companion.TAG
 import com.ardmos.login_with_firebase.databinding.ActivityJoinBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,7 +18,6 @@ import com.google.firebase.ktx.Firebase
 
 
 class JoinActivity : AppCompatActivity() {
-    private var TAG = ""
     private val vbinding by lazy { ActivityJoinBinding.inflate(layoutInflater)}
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -25,8 +25,6 @@ class JoinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(vbinding.root)
-        // get TAG data from LoginActivity
-        TAG = intent.getStringExtra("TAG").toString()
         // get a Firebase Auth instance
         auth = FirebaseAuth.getInstance()
         // get a Cloud Firestore instance

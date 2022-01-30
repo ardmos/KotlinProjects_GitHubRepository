@@ -17,7 +17,10 @@ import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
-    private val TAG: String = "My Log"
+    companion object{
+        val TAG: String = "My Log"
+    }
+
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     val vbinding by lazy { ActivityLoginBinding.inflate(layoutInflater)}
