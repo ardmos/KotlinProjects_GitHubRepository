@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val user = auth.currentUser
         Log.d(TAG,"here is MainActivity and uid is ${user!!.uid}." )
         // get a Firestore data by uid
-        db.collection("users").document(user.uid)  //.document("CK1CiHesYiafCjKT0HholQrCz6p1")
+        db.collection("users").document(user.uid)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null) {
@@ -39,17 +39,23 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Log.d(TAG, "No such document")
                 }
-               /* for(document in result){
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                }*/
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
                 Toast.makeText(baseContext, "Authentication failed. ${exception.message}", Toast.LENGTH_LONG).show()
             }
-
-
-        //Log.d(TAG, "and here is ${user!!.uid}'s data: \n${user_data}")
-
+        // get Firestore data
+/*        db.collection("users")
+            .get()
+            .addOnSuccessListener { result ->
+                Log.d(TAG, result.size().toString())
+                 for(document in result){
+                     Log.d(TAG, "${document.id} => ${document.data}")
+                 }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+                Toast.makeText(baseContext, "Authentication failed. ${exception.message}", Toast.LENGTH_LONG).show()
+            }*/
     }
 }
