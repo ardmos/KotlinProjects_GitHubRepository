@@ -1,17 +1,11 @@
-package com.ardmos.loginwithfirebase
+package com.alzio.simplenoteapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ardmos.loginwithfirebase.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
-    val vbinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(vbinding.root)
-
-
+        setContentView(R.layout.activity_main)
     }
 }

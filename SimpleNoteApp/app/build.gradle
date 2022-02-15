@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.ardmos.loginwithfirebase"
+        applicationId "com.alzio.simplenoteapp"
         minSdk 21
         targetSdk 31
         versionCode 1
@@ -28,9 +28,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-    buildFeatures{
-        viewBinding = true
     }
 }
 
