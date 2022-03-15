@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JoinPage</string>
+    <string name="hint_id">아이디</string>
+    <string name="hint_password">비밀번호</string>
+    <string name="hint_email_address">이메일 아이디</string>
+    <string name="button_text">가입완료</string>
+    <string name="hint_last_name">성</string>
+    <string name="hint_first_name">이름</string>
+    <string name="textview_title">회원가입</string>
+    <string name="checkbox_one">이용약관 동의</string>
+    <string name="checkbox_two">개인정보보호정책에 동의</string>
+    <string name="checkbox_three">SMS수신동의</string>
+    <string name="textview_question">사용중이신 기기</string>
+
+</resources>

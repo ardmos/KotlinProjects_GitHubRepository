@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901731778821",
+    "project_id": "androidlogintestwithfirebase",
+    "storage_bucket": "androidlogintestwithfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901731778821:android:09aaabc34b67d729f6b76c",
+        "android_client_info": {
+          "package_name": "com.ardmos.login_with_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901731778821-8lf6fjq985h0se33b63iacmk86f50euv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAERB22v0GtUX6PsPjrtsz90WklTjzT_cE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901731778821-8lf6fjq985h0se33b63iacmk86f50euv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

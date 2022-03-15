@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "185479419651",
+    "project_id": "simplenoteapp-b4f9b",
+    "storage_bucket": "simplenoteapp-b4f9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185479419651:android:315c1f344b836546387b36",
+        "android_client_info": {
+          "package_name": "com.alzio.simplenoteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185479419651-5pc2oqmbh8hjcf667nb4337okok3o75i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD1j0DEWknJtLun8Io59Pgv9NsM-rR53M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185479419651-5pc2oqmbh8hjcf667nb4337okok3o75i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
