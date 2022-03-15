@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/KotlinProjects_GitHubRepository/SimpleNoteApp/app/src/main/res/layout/activity_join.xml" value="0.2078125" />
         <entry key="..\:/KotlinProjects_GitHubRepository/SimpleNoteApp/app/src/main/res/layout/activity_main.xml" value="0.1824074074074074" />
+        <entry key="..\:/KotlinProjects_GitHubRepository/SimpleNoteApp/app/src/main/res/layout/activity_main2.xml" value="0.2078125" />
       </map>
     </option>
   </component>

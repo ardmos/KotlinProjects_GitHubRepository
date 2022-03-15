@@ -50,6 +50,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
+    // Also declare the dependency for the Google Play services library and specify its version   <<< ---이것부터 하기!!!
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
