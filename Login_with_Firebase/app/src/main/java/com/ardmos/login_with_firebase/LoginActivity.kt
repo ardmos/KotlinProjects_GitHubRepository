@@ -99,16 +99,16 @@ class LoginActivity : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success, user: ${auth.currentUser!!.uid}")
                             val user = auth.currentUser
-                            //updateUI(user)
+                            updateUI(user)
                             // move activity
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
+                            //val intent = Intent(this, MainActivity::class.java)
+                            //startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.exception)
                             Toast.makeText(baseContext, "Authentication failed. ${task.exception!!.message}", Toast.LENGTH_LONG).show()
 
-                            //updateUI(null)
+                            updateUI(null)
                         }
                 }
             }
