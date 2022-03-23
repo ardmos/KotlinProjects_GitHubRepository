@@ -7,7 +7,7 @@ import com.ardmos.login_with_firebase.databinding.ItemRecyclerBinding
 import java.text.SimpleDateFormat
 
 class CustomAdapter: RecyclerView.Adapter<CustomAdapter.Holder>() {
-    val listData = mutableListOf<Memo>()
+    var listData = mutableListOf<Memo>()    // mutableListOf 와 MutableList 차이 ??? MainActivity에서는 MutableList로 쓴다.
 
     class Holder(val vbinding: ItemRecyclerBinding): RecyclerView.ViewHolder(vbinding.root){
         fun setMemo( memo: Memo){   // fun 이름 첫글자 소문자?, 파라미터에 var or val 안써도 됨?

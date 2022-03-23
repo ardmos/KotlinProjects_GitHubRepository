@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardmos.login_with_firebase.LoginActivity.Companion.TAG
 import com.ardmos.login_with_firebase.databinding.ActivityLoginBinding
 import com.ardmos.login_with_firebase.databinding.ActivityMainBinding
@@ -57,13 +58,21 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG, "Error getting documents.", exception)
                 Toast.makeText(baseContext, "Authentication failed. ${exception.message}", Toast.LENGTH_LONG).show()
             }*/
+
+
+        // Recycler View Test
+        val data: MutableList<Memo> = loadData()
+        var adapter = CustomAdapter()
+        adapter.listData = data
+        vbinding.recyclerView.adapter = adapter
+        vbinding.recyclerView.layoutManager = LinearLayoutManager(this) // 매니저 종류는 여러가지가 있다는것.
     }
 
     fun loadData(): MutableList<Memo>{
         val data: MutableList<Memo> = mutableListOf()
 
-        for(no in 1..10){
-            val message = "${no} 번째 메세지"
+        for(no in 1..100){
+            val message = "호호호 ${no} 번째 메세지"
             val date = System.currentTimeMillis()
 
             var memo = Memo(message, date)
