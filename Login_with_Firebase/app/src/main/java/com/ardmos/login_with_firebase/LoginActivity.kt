@@ -101,8 +101,8 @@ class LoginActivity : AppCompatActivity() {
                             val user = auth.currentUser
                             updateUI(user)
                             // move activity
-                            //val intent = Intent(this, MainActivity::class.java)
-                            //startActivity(intent)
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -161,6 +161,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
