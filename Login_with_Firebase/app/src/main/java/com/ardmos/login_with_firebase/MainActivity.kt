@@ -58,4 +58,18 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(baseContext, "Authentication failed. ${exception.message}", Toast.LENGTH_LONG).show()
             }*/
     }
+
+    fun loadData(): MutableList<Memo>{
+        val data: MutableList<Memo> = mutableListOf()
+
+        for(no in 1..10){
+            val message = "${no} 번째 메세지"
+            val date = System.currentTimeMillis()
+
+            var memo = Memo(message, date)
+            data.add(memo)
+        }
+
+        return data
+    }
 }
