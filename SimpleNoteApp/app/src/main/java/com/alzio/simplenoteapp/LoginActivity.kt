@@ -76,6 +76,11 @@ class LoginActivity : AppCompatActivity() {
                             if(it.isSuccessful){
                                 // Firebase auth 로그인 성공
                                 Toast.makeText(this, "Firebase auth 로그인 성공: ${auth.currentUser?.email.toString()}", Toast.LENGTH_LONG).show()
+
+                                // 1. intent 만들기
+                                val intent = Intent(this, MainActivity::class.java)
+                                // 2. startAcivity()
+                                startActivity(intent)
                             }
                             else{
                                 // Firebase auth 로그인 실패
