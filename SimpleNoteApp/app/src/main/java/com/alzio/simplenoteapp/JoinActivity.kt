@@ -20,6 +20,13 @@ class JoinActivity : AppCompatActivity() {
         var auth = FirebaseAuth.getInstance()
         var db = FirebaseFirestore.getInstance()
 
+        // Message 데이터 샘플
+        val data: MutableList<String> = mutableListOf()
+        for (no in 1..100) {
+            data.add(" ${no}번 데이터")
+        }
+
+
         vbinding.buttonSubmitJoinpage.setOnClickListener {
             auth.createUserWithEmailAndPassword(vbinding.editTextEmailIDJoinpage.text.toString(),vbinding.editTextPasswordJoinpage.text.toString())
                 .addOnCompleteListener(this) {
@@ -34,7 +41,8 @@ class JoinActivity : AppCompatActivity() {
                         var userData = mapOf(
                             "age" to vbinding.editTextAgeJoinpage.text.toString(),
                             "name" to vbinding.editTextNameJoinpage.text.toString(),
-                            "message" to vbinding.editTextMessageJoinpage.text.toString()
+                            //"message" to vbinding.editTextMessageJoinpage.text.toString()
+                            "message" to data
                         )
 
 

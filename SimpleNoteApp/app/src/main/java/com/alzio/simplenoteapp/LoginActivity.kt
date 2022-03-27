@@ -132,7 +132,8 @@ class LoginActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                                 if (it != null){
                                     // 해당 uid의 문서를 찾은 경우.
-                                    Toast.makeText(this, "${ it.data}", Toast.LENGTH_LONG ).show()
+                                    //Toast.makeText(this, "${ it.data}", Toast.LENGTH_LONG ).show()
+
                                 }
                                 else{
                                     // 해당 uid값을 가진 문서가  존재하지 않는 경우

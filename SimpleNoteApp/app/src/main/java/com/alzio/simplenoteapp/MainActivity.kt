@@ -1,8 +1,10 @@
 package com.alzio.simplenoteapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -29,23 +31,37 @@ class MainActivity : AppCompatActivity() {
 
         // 리사이클러뷰
         // 1. 표현하고자 하는 데이터
-        val data: MutableList<String> = mutableListOf()
-        for (no in 1..100){
+        var data: MutableList<String> = mutableListOf()
+
+        // 1-1. 표현하고자 하는 데이터를 서버에서 읽어오기
+        db.collection("users").document(auth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                if (it != null){
+                    // 해당 uid의 문서를 찾은 경우.
+                    //Toast.makeText(this, "${ it.data}", Toast.LENGTH_LONG ).show()
+
+                    //Toast.makeText(this, "data size check 1: ${data.size}", Toast.LENGTH_LONG ).show()
+                    data = it.data!!.get("message") as MutableList<String>
+                    //Toast.makeText(this, "data size check 2: ${data.size}", Toast.LENGTH_LONG ).show()
+
+                    showRecyclerView(data)
+                }
+                else{
+                    // 해당 uid값을 가진 문서가  존재하지 않는 경우
+                    Toast.makeText(this, "해당 uid값을 가진 문서가  존재하지 않는 경우", Toast.LENGTH_LONG).show()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+            }
+
+        //Toast.makeText(this, "data size check 3: ${data.size}", Toast.LENGTH_LONG ).show()
+
+
+/*        for (no in 1..100){
             data.add(" ${no}번 데이터")
-        }
-
-
-
-        // 3. 리사이클러뷰 자체의 레이아웃
-        var recyclerViewAdapter = CustomAdapter()
-        recyclerViewAdapter.listData = data
-
-        vbinding.recyclerViewMain.adapter = recyclerViewAdapter
-        vbinding.recyclerViewMain.layoutManager = LinearLayoutManager(this)
-
-
-
-
+        }*/
 
 
         // 회원 삭제
@@ -74,7 +90,35 @@ class MainActivity : AppCompatActivity() {
 
         }*/
 
+
+        vbinding.navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.item_profile -> openNewActivity(ProfileActivity::class.java)
+                R.id.item2 -> Toast.makeText(this, "item2 clicked", Toast.LENGTH_LONG ).show()
+            }
+
+            true
+        }
+
     }
+
+    fun openNewActivity(activity: Class<*>){
+        // 1. intent 만들기
+        val intent = Intent(this, activity)
+        // 2. startAcivity()
+        startActivity(intent)
+    }
+
+
+    fun showRecyclerView(data : MutableList<String>){
+        // 3. 리사이클러뷰 자체의 레이아웃
+        var recyclerViewAdapter = CustomAdapter()
+        recyclerViewAdapter.listData = data
+
+        vbinding.recyclerViewMain.adapter = recyclerViewAdapter
+        vbinding.recyclerViewMain.layoutManager = LinearLayoutManager(this)
+    }
+
 
     // 2. 리사이클러뷰 내의 아이템 레이아웃
     class CustomAdapter: RecyclerView.Adapter<CustomAdapter.Holder>(){
