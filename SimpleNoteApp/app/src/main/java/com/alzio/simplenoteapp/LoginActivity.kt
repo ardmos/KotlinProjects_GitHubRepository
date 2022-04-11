@@ -56,10 +56,10 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-
+        // 구글에 요청한 결과에 대한 처리
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if(it.resultCode == RESULT_OK){
-                // 구글 로그인에 성공을 하면, 로그인 사용자의 정보를 저희 firebase auth에 전달을 합니다.
+                // 구글 로그인에 성공, 로그인 사용자의 정보를 저희 firebase auth에 전달을 합니다.
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
 
                 try {
@@ -77,28 +77,36 @@ class LoginActivity : AppCompatActivity() {
                                 // Firebase auth 로그인 성공
                                 Toast.makeText(this, "Firebase auth 로그인 성공: ${auth.currentUser?.email.toString()}", Toast.LENGTH_LONG).show()
 
-                                // 1. intent 만들기
-                                val intent = Intent(this, MainActivity::class.java)
-                                // 2. startAcivity()
-                                startActivity(intent)
+                                // 이미 해당 uid의 도큐먼트가 존재 하는지 확인
+                                db.collection("users").document(auth.currentUser!!.uid)
+                                    .get()
+                                    .addOnSuccessListener {
+                                        if (it.exists()){
+                                            // 해당 uid의 문서를 찾은 경우.
+                                            openNewActivity(MainActivity::class.java)
+
+                                        }
+                                        else{
+                                            // 해당 uid값을 가진 문서가  존재하지 않는 경우
+                                            setDefaultDocData()
+                                            openNewActivity(MainActivity::class.java)
+                                        }
+                                    }
+
                             }
                             else{
                                 // Firebase auth 로그인 실패
                                 Toast.makeText(this, "Firebase auth 로그인 실패", Toast.LENGTH_LONG).show()
                             }
                         }
-
-
                 } catch (e: ApiException){
                     //Log.d("test", "구글 로그인에 실패했습니다 ${e.message}")
                     Toast.makeText(this, "구글 로그인에 실패했습니다 ${e.message}", Toast.LENGTH_LONG).show()
                 }
 
-
             }else{
                 Toast.makeText(this, "구글 로그인 요청에 실패했습니다", Toast.LENGTH_LONG).show()
             }
-
         }
 
         // google sign in
@@ -107,17 +115,14 @@ class LoginActivity : AppCompatActivity() {
             //startActivityForResult(googleSignInClient.signInIntent, 1234)
             getResult.launch(googleSignInClient.signInIntent)
         }
-
-
-
+        // Create Account
         vbinding.buttonCreateAccount.setOnClickListener {
             // 1. intent 만들기
             val intent = Intent(this, JoinActivity::class.java)
             // 2. startAcivity()
             startActivity(intent)
         }
-
-
+        // Email sign in
         vbinding.buttonSignInWithEmail.setOnClickListener {
             auth.signInWithEmailAndPassword(vbinding.editTextID.text.toString(),vbinding.editTextPassword.text.toString())
                 .addOnCompleteListener(this) {
@@ -159,8 +164,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         }
-
-
+        // sign out
         vbinding.buttonSignOut.setOnClickListener {
             Firebase.auth.signOut()
             vbinding.textView.text = auth.currentUser?.email
@@ -210,5 +214,32 @@ class LoginActivity : AppCompatActivity() {
 
     }*/
 
+    fun setDefaultDocData(){
+        // Message 데이터 샘플
+        val data: MutableList<String> = mutableListOf()
+        for (no in 1..100) {
+            data.add(" ${no}번 데이터")
+        }
 
+        // 1. 데이터를 맵의 형태로 만듭니다.
+        //     age, name, message
+        var userData = mapOf(
+            "age" to "88",
+            "name" to "google",
+            //"message" to vbinding.editTextMessageJoinpage.text.toString()
+            "message" to data
+        )
+
+        // 2. 만들어준 데이터를 전송해줍니다.
+        db.collection("users").document(auth.currentUser!!.uid)
+            .set(userData)
+
+    }
+
+    fun openNewActivity(activity: Class<*>){
+        // 1. intent 만들기
+        val intent = Intent(this, activity)
+        // 2. startAcivity()
+        startActivity(intent)
+    }
 }

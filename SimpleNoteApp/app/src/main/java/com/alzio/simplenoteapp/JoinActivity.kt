@@ -45,7 +45,6 @@ class JoinActivity : AppCompatActivity() {
                             "message" to data
                         )
 
-
                         // 2. 만들어준 데이터를 전송해줍니다.
                         db.collection("users").document(auth.currentUser!!.uid)
                             .set(userData)
@@ -59,4 +58,5 @@ class JoinActivity : AppCompatActivity() {
                 }
         }
     }
+
 }

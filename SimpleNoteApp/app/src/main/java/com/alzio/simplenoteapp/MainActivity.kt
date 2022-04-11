@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         db.collection("users").document(auth.currentUser!!.uid)
             .get()
             .addOnSuccessListener {
-                if (it != null){
+                if (it.exists()){
                     // 해당 uid의 문서를 찾은 경우.
                     //Toast.makeText(this, "${ it.data}", Toast.LENGTH_LONG ).show()
 
@@ -126,6 +128,19 @@ class MainActivity : AppCompatActivity() {
 
         // 표현하고자 하는 데이터와, 그 데이터를 담을 아이템 홀더(그릇)를 만들어서
         class Holder(val vbinding: ItemLayoutRecyclerBinding): RecyclerView.ViewHolder(vbinding.root){
+            init {
+                vbinding.root.setOnClickListener {
+                    openNewActivity(MainActivity2::class.java)
+                }
+            }
+
+            private fun openNewActivity(activity: Class<*>) {
+                // 1. intent 만들기
+                val intent = Intent(vbinding.root.context, activity)
+                // 2. startAcivity()
+                startActivity(vbinding.root.context, intent, null)
+            }
+
             fun setData(message: String){
                 vbinding.textMessageItem.text = message
             }
