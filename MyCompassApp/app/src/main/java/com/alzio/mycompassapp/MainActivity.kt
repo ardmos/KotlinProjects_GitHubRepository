@@ -15,10 +15,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.location.Location
+import android.os.Looper
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.CameraPosition
 import kotlin.math.round
 
 class MainActivity : AppCompatActivity(), SensorEventListener, OnMapReadyCallback {
@@ -41,6 +46,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener, OnMapReadyCallbac
     // 구글 맵
     private lateinit var mMap: GoogleMap
     val permission = Manifest.permission.ACCESS_FINE_LOCATION
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +92,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, OnMapReadyCallbac
     }
 
 
-    /// 이제 위치 추적할 차례!  준비는 끝!  ++ 그리고 출시!  하면 끝 
+
 
 
 
@@ -100,12 +108,54 @@ class MainActivity : AppCompatActivity(), SensorEventListener, OnMapReadyCallbac
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(37.5283169, 126.9294254)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        // 현재 기기 위치를 구글 맵에 반영하기
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        updateDeviceLocation()
     }
 
+    // 현재 기기 위치 알아내기
+    @SuppressLint("MissingPermission")
+    fun updateDeviceLocation(){
+        // 안드로이드에게 위치를 요청할 때 같이 보내줄 옵션
+        val locationRequest = LocationRequest.create()
+        locationRequest.run {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            interval = 1500
+        }
+
+        // 안드로이드가 기기의 위치를 알아냈을 때 실행되는 부분
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                p0?.let {
+                    // 기기에서 알려준 위치를 Toast 메세지로 출력하기
+                    for(location in it.locations){
+                        //Toast.makeText(this@MainActivity, "${location.latitude} : ${location.longitude}", Toast.LENGTH_LONG).show()
+                        setLastLoction(location)
+                    }
+                }
+            }
+        }
+
+        // 안드로이드에게 위치를 알려달라고 요청
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper()!!)
+    }
+
+    fun setLastLoction(lastLocation: Location){
+        // 전달받은 로케이션을 바탕으로 마커를 생성해줍니다.
+        val LATLNG = LatLng(lastLocation.latitude, lastLocation.longitude)
+        val markerOptions = MarkerOptions()
+            .position(LATLNG)
+            .title("My position! :)")
+
+        val cameraPosition = CameraPosition.Builder()
+            .target(LATLNG)
+            .zoom(15.0f)
+            .build()
+
+        mMap.clear()
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        mMap.addMarker(markerOptions)
+    }
 
 
     // 센서
