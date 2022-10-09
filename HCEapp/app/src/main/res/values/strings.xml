@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HCEapp</string>
+    <string name="servicedesc">this Service is for HCE</string>
+    <string name="aiddescription">this aid is for HCE</string>
 </resources>
