@@ -6,7 +6,7 @@ import android.os.Bundle
 class MyHostApduService : HostApduService() {
     override fun processCommandApdu(commandApdu: ByteArray?, extras: Bundle?): ByteArray {
 
-        return commandApdu!!
+        return "My Message".toByteArray()
     }
 
     override fun onDeactivated(reason: Int) {
